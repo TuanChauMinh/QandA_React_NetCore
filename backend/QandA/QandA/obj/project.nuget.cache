@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "cIYy/Awj3gXZ4lnkcPFOL2X7weaojyooazLgYpKTkhH4BZuZGE9G6t4hP2R6uqMxQuzu/I9I5gYzqhBQyPqt7A==",
+  "success": true,
+  "projectFilePath": "D:\\Coding Life\\HandsOn_Core_React\\QandA\\backend\\QandA\\QandA\\QandA.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Tuan Chau\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.0.3\\microsoft.netcore.app.host.win-x64.3.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
