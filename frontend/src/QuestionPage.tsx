@@ -1,4 +1,4 @@
-import { FC, useState, Fragment, useEffect } from 'react';
+import React, { FC, useState, Fragment, useEffect } from 'react';
 import { Page } from './Page';
 import { RouteComponentProps } from 'react-router-dom';
 import { QuestionData, getQuestion } from './QuestionsData';

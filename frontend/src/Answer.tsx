@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { AnswerData } from './QuestionsData';

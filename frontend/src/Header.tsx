@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import React, { ChangeEvent } from 'react';
 import { UserIcon } from './Icons';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';

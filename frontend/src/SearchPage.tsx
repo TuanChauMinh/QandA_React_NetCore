@@ -1,4 +1,5 @@
-import { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
+
 import { RouteComponentProps } from 'react-router-dom';
 import { Page } from './Page';
 import { QuestionList } from './QuestionList';
