@@ -4,8 +4,20 @@ import {
   postQuestion,
   PostQuestionData,
 } from './QuestionsData';
-import { Action, ActionCreator, Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
+import {
+  Action,
+  ActionCreator,
+  Dispatch,
+  Reducer,
+  combineReducers,
+  Store,
+  createStore,
+  applyMiddleware,
+} from 'redux';
+import thunk, { ThunkAction } from 'redux-thunk';
+import { act } from 'react-dom/test-utils';
+import { stat } from 'fs';
+
 // Creating the state
 interface QuestionsState {
   readonly loading: boolean;
@@ -17,6 +29,7 @@ const initialQuestionState: QuestionsState = {
   loading: false,
   unanswered: null,
 };
+
 export interface AppState {
   readonly questions: QuestionsState;
 }
@@ -65,6 +78,53 @@ export const getUnansweredQuestionsActionCreator: ActionCreator<ThunkAction<
   };
 };
 
+const questionsReducer: Reducer<QuestionsState, QuestionsActions> = (
+  state = initialQuestionState,
+  action,
+) => {
+  // handle the different actions and return new state
+  switch (action.type) {
+    case 'GettingUnansweredQuestions': {
+      // Return new state
+      return {
+        ...state,
+        unanswered: null,
+        loading: true,
+      };
+    }
+    case 'GotUnansweredQuestions': {
+      //return new state
+      return {
+        ...state,
+        unanswered: action.questions,
+        loading: false,
+      };
+    }
+    case 'PostedQuestion': {
+      return {
+        ...state,
+        unanswered: action.result
+          ? (state.unanswered || []).concat(action.result)
+          : state.unanswered,
+        postedResult: action.result,
+      };
+    }
+    default:
+      neverReached(action);
+  }
+  return state;
+};
+const neverReached = (never: never) => {};
+
+const rootReducer = combineReducers<AppState>({
+  questions: questionsReducer,
+});
+
+export function configureStore(): Store<AppState> {
+  const store = createStore(rootReducer, undefined, applyMiddleware(thunk));
+  return store;
+}
+
 export const postQuestionActionCreator: ActionCreator<ThunkAction<
   Promise<void>,
   QuestionData,
@@ -79,4 +139,12 @@ export const postQuestionActionCreator: ActionCreator<ThunkAction<
     };
     dispatch(postedQuestionAction);
   };
+};
+
+export const clearPostedQuestionActionCreator: ActionCreator<PostedQuestionAction> = () => {
+  const postedQuestionAction: PostedQuestionAction = {
+    type: 'PostedQuestion',
+    result: undefined,
+  };
+  return postedQuestionAction;
 };
