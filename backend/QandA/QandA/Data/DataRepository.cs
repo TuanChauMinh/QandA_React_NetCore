@@ -20,7 +20,11 @@ namespace QandA.Data
 
         public void DeleteQuestion(int questionId)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                connection.Execute(@"EXEC dbo.Question_Delete @QuestionId = @QuestionId", new { QuestionId = questionId });
+            }
         }
 
         public AnswerGetResponse GetAnswer(int answerId)
@@ -88,17 +92,45 @@ namespace QandA.Data
 
         public AnswerGetResponse PostAnswer(AnswerPostRequest answer)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                return connection.QueryFirst<AnswerGetResponse>(
+                @"EXEC dbo.Answer_Post
+                 @QuestionId = @QuestionId, @Content = @Content,
+                 @UserId = @UserId, @UserName = @UserName,
+                 @Created = @Created",
+                answer
+                );
+            }
+
         }
 
-        public QuestionGetSingleResponse PostQuestion(QuestionPostRequest question)
+        public QuestionGetSingleResponse PostQuestion(QuestionPostFullRequest question)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                var questionId = connection.QueryFirst<int>(@"EXEC dbo.Question_Post @Title = @Title, @Content = @Content, @UserId = @UserId, @UserName = @UserName,@Created = @Created", question);
+
+                return GetQuestion(questionId);
+            }
+
         }
 
         public QuestionGetSingleResponse PutQuestion(int questionId, QuestionPutRequest question)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                connection.Execute(
+                @"EXEC dbo.Question_Put
+                @QuestionId = @QuestionId, @Title = @Title, @Content = @Content",
+                new { QuestionId = questionId, question.Title, question.Content }
+                );
+                return GetQuestion(questionId);
+            }
         }
 
         public bool QuestionExists(int questionId)

@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace QandA.Data.Models
 {
-    public class QuestionPostRequest
+    public class AnswerPostRequest
     {
         [Required]
-        [StringLength(100)]
-        public string Title { get; set; }
-        [Required(ErrorMessage = "Please include some content for the question")]
+        public int? QuestionId { get; set; }
+        [Required]
         public string Content { get; set; }
     }
 }
