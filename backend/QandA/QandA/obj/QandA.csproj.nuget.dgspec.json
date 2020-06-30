@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Coding Life\\HandsOn_Core_React\\QandA\\backend\\QandA\\QandA\\QandA.csproj": {}
+    "D:\\Coding Life\\HandsOn_Core_React\\QandA_React_NetCore\\backend\\QandA\\QandA\\QandA.csproj": {}
   },
   "projects": {
-    "D:\\Coding Life\\HandsOn_Core_React\\QandA\\backend\\QandA\\QandA\\QandA.csproj": {
+    "D:\\Coding Life\\HandsOn_Core_React\\QandA_React_NetCore\\backend\\QandA\\QandA\\QandA.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Coding Life\\HandsOn_Core_React\\QandA\\backend\\QandA\\QandA\\QandA.csproj",
+        "projectUniqueName": "D:\\Coding Life\\HandsOn_Core_React\\QandA_React_NetCore\\backend\\QandA\\QandA\\QandA.csproj",
         "projectName": "QandA",
-        "projectPath": "D:\\Coding Life\\HandsOn_Core_React\\QandA\\backend\\QandA\\QandA\\QandA.csproj",
+        "projectPath": "D:\\Coding Life\\HandsOn_Core_React\\QandA_React_NetCore\\backend\\QandA\\QandA\\QandA.csproj",
         "packagesPath": "C:\\Users\\Tuan Chau\\.nuget\\packages\\",
-        "outputPath": "D:\\Coding Life\\HandsOn_Core_React\\QandA\\backend\\QandA\\QandA\\obj\\",
+        "outputPath": "D:\\Coding Life\\HandsOn_Core_React\\QandA_React_NetCore\\backend\\QandA\\QandA\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -42,6 +42,20 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
+          "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.35, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.1, )"
+            },
+            "dbup": {
+              "target": "Package",
+              "version": "[4.4.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
