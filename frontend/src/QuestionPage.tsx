@@ -6,7 +6,13 @@ import {
   HubConnectionState,
   HubConnection,
 } from '@aspnet/signalr';
-import { QuestionData, getQuestion, postAnswer } from './QuestionsData';
+import {
+  QuestionData,
+  getQuestion,
+  postAnswer,
+  mapQuestionFromServer,
+  QuestionDataFromServer,
+} from './QuestionsData';
 import { Form, required, minLength, Values } from './Form';
 import { Field } from './Field';
 /** @jsx jsx */
@@ -24,15 +30,16 @@ export const QuestionPage: FC<RouteComponentProps<RouteParams>> = ({
 
   const setUpSignalRConnection = async (questionId: number) => {
     const connection = new HubConnectionBuilder()
-      .withUrl('http://localhost:44398/questionshub')
+      .withUrl('https://localhost:44398/questionshub')
       .withAutomaticReconnect()
       .build();
+
     connection.on('Message', (message: string) => {
       console.log('Message', message);
     });
-    connection.on('ReceiveQuestion', (question: QuestionData) => {
+    connection.on('ReceiveQuestion', (question: QuestionDataFromServer) => {
       console.log('ReceiveQuestion', question);
-      setQuestion(question);
+      setQuestion(mapQuestionFromServer(question));
     });
     try {
       await connection.start();

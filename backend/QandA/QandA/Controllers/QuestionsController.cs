@@ -119,12 +119,14 @@ namespace QandA.Controllers
                      Created = DateTime.UtcNow
                  }
              );
-            _questionHubContext.Clients.Group($"Question-{answerPostRequest.QuestionId.Value}").SendAsync("ReceiveQuestion", _dataRepository.GetQuestion(answerPostRequest.QuestionId.Value));
+            _questionHubContext.Clients.Group(
+             $"Question-{answerPostRequest.QuestionId.Value}")
+             .SendAsync(
+             "ReceiveQuestion",
+             _dataRepository.GetQuestion(
+             answerPostRequest.QuestionId.Value));
 
             return savedAnswer;
         }
-
-
-
     }
 }
