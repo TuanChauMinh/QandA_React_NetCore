@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
 using QandA.Data;
 using QandA.Data.Models;
 using QandA.Hubs;
@@ -18,10 +20,12 @@ namespace QandA.Controllers
     {
         private readonly IDataRepository _dataRepository;
         private readonly IHubContext<QuestionsHub> _questionHubContext;
-        public QuestionsController(IDataRepository dataRepository, IHubContext<QuestionsHub> questionHubContext)
+        private readonly IQuestionCache _cache;
+        public QuestionsController(IDataRepository dataRepository, IHubContext<QuestionsHub> questionHubContext, IQuestionCache cache)
         {
             _dataRepository = dataRepository;
             _questionHubContext = questionHubContext;
+            _cache = cache;
         }
 
         [HttpGet]
@@ -53,17 +57,28 @@ namespace QandA.Controllers
         [HttpGet("{questionId}")]
         public ActionResult<QuestionGetSingleResponse> GetQuestion(int questionId)
         {
-            var question = _dataRepository.GetQuestion(questionId);
+            //var question = _dataRepository.GetQuestion(questionId);
+            var question = _cache.Get(questionId);
+          
             if(question == null)
             {
-                return NotFound();
+                question = _dataRepository.GetQuestion(questionId);
+                if (question == null)
+                {
+                    return NotFound();
+                }
             }
+            _cache.Set(question);
             return question;
         }
 
         [HttpPost]
-        public ActionResult<QuestionGetSingleResponse> PostQuestion(QuestionPostRequest questionPostRequest)
+        public async Task<ActionResult<QuestionGetSingleResponse>> PostQuestion(QuestionPostRequest questionPostRequest)
         {
+            //var json = await new StreamReader(Request.Body).ReadToEndAsync();
+
+            //var questionPostRequest = JsonConvert.DeserializeObject<QuestionPostRequest>(json);
+
             var savedQuestion =
              _dataRepository.PostQuestion(new QuestionPostFullRequest
              {
@@ -92,6 +107,8 @@ namespace QandA.Controllers
             questionPutRequest.Content = string.IsNullOrEmpty(questionPutRequest.Content) ? question.Content : questionPutRequest.Content;
 
             var savedQuestion = _dataRepository.PutQuestion(questionId, questionPutRequest);
+
+            _cache.Remove(savedQuestion.QuestionId);
             return savedQuestion;
         }
         [HttpDelete("{questionId}")]
@@ -126,6 +143,8 @@ namespace QandA.Controllers
                      Created = DateTime.UtcNow
                  }
              );
+            _cache.Remove(answerPostRequest.QuestionId.Value);
+
             _questionHubContext.Clients.Group(
              $"Question-{answerPostRequest.QuestionId.Value}")
              .SendAsync(

@@ -208,7 +208,7 @@ namespace QandA.Data
             }
         }
 
-        public async Task<IEnumerable<QuestionGetManyResponse>> GetUnansweredQuestionAsync()
+        public async Task<IEnumerable<QuestionGetManyResponse>> GetUnansweredQuestionsAsync()
         {
             using( var connection = new SqlConnection(_connectionString))
             {
