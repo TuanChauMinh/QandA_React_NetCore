@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
@@ -28,6 +29,7 @@ namespace QandA.Controllers
             _cache = cache;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IEnumerable<QuestionGetManyResponse> GetQuestions(string search, bool includeAnswers, int page = 1, int pageSize =20)
         {
@@ -47,13 +49,14 @@ namespace QandA.Controllers
                 return _dataRepository.GetQuestionsBySearchWithPaging(search,page,pageSize);
             }
         }
-
+        [AllowAnonymous]
         [HttpGet("unanswered")]
         public async  Task<IEnumerable<QuestionGetManyResponse>> GetUnansweredQuestions()
         {
             return await _dataRepository.GetUnansweredQuestionsAsync();
         }
 
+        [AllowAnonymous]
         [HttpGet("{questionId}")]
         public ActionResult<QuestionGetSingleResponse> GetQuestion(int questionId)
         {
@@ -72,6 +75,7 @@ namespace QandA.Controllers
             return question;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<QuestionGetSingleResponse>> PostQuestion(QuestionPostRequest questionPostRequest)
         {
@@ -94,6 +98,7 @@ namespace QandA.Controllers
              savedQuestion);
         }
 
+        [Authorize]
         [HttpPut("{questionId}")]
         public ActionResult<QuestionGetSingleResponse> PutQuestion(int questionId, QuestionPutRequest questionPutRequest)
         {
@@ -111,6 +116,8 @@ namespace QandA.Controllers
             _cache.Remove(savedQuestion.QuestionId);
             return savedQuestion;
         }
+
+        [Authorize]
         [HttpDelete("{questionId}")]
         public ActionResult DeleteQuestion(int questionId)
         {
@@ -123,6 +130,7 @@ namespace QandA.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpPost("answer")]
         public ActionResult<AnswerGetResponse> PostAnswer(AnswerPostFullRequest answerPostRequest)
         {
