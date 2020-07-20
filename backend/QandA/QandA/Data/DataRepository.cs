@@ -42,7 +42,7 @@ namespace QandA.Data
             }
         }
 
-        public QuestionGetSingleResponse GetQuestion(int questionId)
+        public async Task<QuestionGetSingleResponse> GetQuestion(int questionId)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -215,6 +215,21 @@ namespace QandA.Data
                 await connection.OpenAsync();
                 return await connection.QueryAsync<QuestionGetManyResponse>("EXEC dbo.Question_GetUnanswered");
             }
+        }
+
+        Task<QuestionGetSingleResponse> IDataRepository.GetQuestion(int questionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<QuestionGetSingleResponse> IDataRepository.PutQuestion(int questionId, QuestionPutRequest question)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<AnswerGetResponse> IDataRepository.PostAnswer(AnswerPostFullRequest answer)
+        {
+            throw new NotImplementedException();
         }
     }
 }

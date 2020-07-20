@@ -15,13 +15,12 @@ namespace QandA.Data
 
         IEnumerable<QuestionGetManyResponse> GetQuestionsBySearch(string search);
         IEnumerable<QuestionGetManyResponse> GetUnansweredQuestions();
-        QuestionGetSingleResponse
-        GetQuestion(int questionId);
+        Task<QuestionGetSingleResponse> GetQuestion(int questionId);
         bool QuestionExists(int questionId);
         AnswerGetResponse GetAnswer(int answerId);
         QuestionGetSingleResponse PostQuestion(QuestionPostFullRequest question);
-        QuestionGetSingleResponse PutQuestion(int questionId, QuestionPutRequest question);
+        Task<QuestionGetSingleResponse> PutQuestion(int questionId, QuestionPutRequest question);
         void DeleteQuestion(int questionId);
-        AnswerGetResponse PostAnswer(AnswerPostFullRequest answer);
+        Task<AnswerGetResponse> PostAnswer(AnswerPostFullRequest answer);
     }
 }
