@@ -40,22 +40,22 @@ namespace QandA.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IEnumerable<QuestionGetManyResponse> GetQuestions(string search, bool includeAnswers, int page = 1, int pageSize =20)
+        public async Task<IEnumerable<QuestionGetManyResponse>> GetQuestions(string search, bool includeAnswers, int page = 1, int pageSize = 20)
         {
-            if(string.IsNullOrEmpty(search))
+            if (string.IsNullOrEmpty(search))
             {
                 if (includeAnswers)
                 {
-                    return _dataRepository.GetQuestionsWithAnswers();
+                    return await _dataRepository.GetQuestionsWithAnswers();
                 }
                 else
                 {
-                    return _dataRepository.GetQuestions();
+                    return await _dataRepository.GetQuestions();
                 }
             }
             else
             {
-                return _dataRepository.GetQuestionsBySearchWithPaging(search,page,pageSize);
+                return await _dataRepository.GetQuestionsBySearchWithPaging(search, page, pageSize);
             }
         }
         [AllowAnonymous]
@@ -91,7 +91,7 @@ namespace QandA.Controllers
             //var questionPostRequest = JsonConvert.DeserializeObject<QuestionPostRequest>(json);
 
             var savedQuestion =
-             _dataRepository.PostQuestion(new QuestionPostFullRequest
+            await _dataRepository.PostQuestion(new QuestionPostFullRequest
              {
                  Title = questionPostRequest.Title,
                  Content = questionPostRequest.Content,
@@ -142,7 +142,7 @@ namespace QandA.Controllers
         public async Task<ActionResult<AnswerGetResponse>> PostAnswer(AnswerPostFullRequest answerPostRequest)
         {
             var questionExists =
-            _dataRepository.QuestionExists(answerPostRequest.QuestionId.Value);
+            await _dataRepository.QuestionExists(answerPostRequest.QuestionId.Value);
             if (!questionExists)
             {
                 return NotFound();
