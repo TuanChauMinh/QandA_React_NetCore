@@ -13,6 +13,7 @@ import { SignOutPage } from './SignOutPage';
 import { NotFoundPage } from './NotFoundPage';
 import { QuestionPage } from './QuestionPage';
 import { AuthProvider } from './Auth';
+import { AuthorizedPage } from './AuthorizedPage';
 
 const AskPage = lazy(() => import('./AskPage'));
 
@@ -35,6 +36,7 @@ const App: React.FC = () => {
               <Redirect from="/home" to="/" />
               <Route exact path="/" component={HomePage} />
               <Route path="/search" component={SearchPage} />
+
               <Route path="/ask">
                 <Suspense
                   fallback={
@@ -48,7 +50,9 @@ const App: React.FC = () => {
                     </div>
                   }
                 >
-                  <AskPage />
+                  <AuthorizedPage>
+                    <AskPage />
+                  </AuthorizedPage>
                 </Suspense>
               </Route>
               <Route
