@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QandA", "QandA\QandA.csproj", "{89518116-BBB0-4F22-9134-99C9CE9D18BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QandA", "QandA\QandA.csproj", "{89518116-BBB0-4F22-9134-99C9CE9D18BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendTests", "BackendTests\BackendTests.csproj", "{D37358A4-E060-46A7-A957-07A85E121375}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{89518116-BBB0-4F22-9134-99C9CE9D18BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89518116-BBB0-4F22-9134-99C9CE9D18BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89518116-BBB0-4F22-9134-99C9CE9D18BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D37358A4-E060-46A7-A957-07A85E121375}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D37358A4-E060-46A7-A957-07A85E121375}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D37358A4-E060-46A7-A957-07A85E121375}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D37358A4-E060-46A7-A957-07A85E121375}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
