@@ -9,3 +9,5 @@
 /backend/QandA/QandA/bin/Debug/netcoreapp3.1
 /backend/QandA/BackendTests/bin/Debug/netcoreapp3.1
 /backend/QandA/BackendTests/obj
+/backend/QandA/QandA/bin/Release/netcoreapp3.1
+/backend/QandA/QandA/obj/Release/netcoreapp3.1
