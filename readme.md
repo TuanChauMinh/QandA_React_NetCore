@@ -6,15 +6,21 @@ FE:
 - Redux
 - TypeScript
 - Emotion
-
+- Testing:
+	. Jest
+	. Cypress
 BE:
 
 - .NET CORE 3.1
 - SignalR
 - Dapper
+- Testing:
+	. xUnit
+
 
 Authen, Authorization : Auth0
 
 Database: SQL Server
 
-..... TO BE CONTINUE......
+Cloud: Azure ( App Service, SQL database)
+
