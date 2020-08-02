@@ -1,11 +1,16 @@
-export const server = 'https://localhost:44398';
+export const server =
+  process.env.REACT_APP_ENV === 'production'
+    ? '<host_production>'
+    : process.env.REACT_APP_ENV === 'staging'
+    ? '<host_staging>'
+    : '<localhost>';
 
 export const webAPIUrl = `${server}/api`;
 
 export const authSettings = {
-  domain: 'tuan-test.au.auth0.com',
-  client_id: 'xmsN7gHgSNJWrVe2tHxyLz0eKR3UnFed',
+  domain: '<auth0_domain>',
+  client_id: '<client_id>',
   redirect_uri: window.location.origin + '/signin-callback',
   scope: 'openid profile QandAAPI email',
-  audience: 'https://qanda',
+  audience: '<audience>',
 };

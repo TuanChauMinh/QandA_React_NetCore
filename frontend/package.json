@@ -26,6 +26,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:production": "cross-env REACT_APP_ENV=production npm run build",
+    "build:staging": "cross-env REACT_APP_ENV=staging npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cy:open": "cypress open"
