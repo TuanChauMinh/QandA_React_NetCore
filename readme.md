@@ -9,6 +9,7 @@ FE:
 - Testing:
 	. Jest
 	. Cypress
+
 BE:
 
 - .NET CORE 3.1
